@@ -40,16 +40,38 @@ def merge_sort(arr):
 # implement an in-place merge sort algorithm
 def merge_in_place(arr, start, mid, end):
     # Your code here
+    left_end = mid
+    right_start = mid +1
 
-
+    while start <= left_end and right_start <= end:
+        if arr[start] <= arr[right_start]:
+            start += 1
+        else:
+            # swap values
+            index = right_start
+            while index != start:
+                arr[index - 1], arr[index] = arr[index], arr[index - 1]
+                index -= 1
+            # value is now moved to the front
+            # update pointers
+            start += 1
+            left_end += 1
+            right_start += 1
+    #  values are being overwritten
     return arr
 
 
-def merge_sort_in_place(arr, l, r):
+def merge_sort_in_place(arr, left, right):
     # Your code here
 
+    if left < right:
+        mid = (left + right) // 2
+        merge_sort_in_place(arr, left, mid)
+        merge_sort_in_place(arr, mid + 1, right)
 
-    return arr
+        merge_in_place(arr, left, mid, right)
+
+    return arr 
 
 
 # STRETCH: implement the Timsort function below
